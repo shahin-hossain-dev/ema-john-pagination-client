@@ -14,6 +14,8 @@ const Shop = () => {
   const [cart, setCart] = useState([]);
   const { count } = useLoaderData();
   const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
+
   const numberOfPages = Math.ceil(count / itemsPerPage);
 
   // const pages = [];
@@ -29,7 +31,7 @@ const Shop = () => {
   /**
    * Todo 1: get total numbers of product
    * Todo 2: number of items per page dynamic
-   * Todo 3:
+   * Todo 3: get the current page
    * Todo 4:
    */
 
@@ -89,6 +91,18 @@ const Shop = () => {
     console.log(e.target.value);
     const val = parseInt(e.target.value);
     setItemsPerPage(val);
+    setCurrentPage(1);
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+  const handleNextPage = () => {
+    if (currentPage < pages.length) {
+      setCurrentPage(currentPage + 1);
+    }
   };
 
   return (
@@ -110,10 +124,19 @@ const Shop = () => {
         </Cart>
       </div>
       <div className="pagination">
+        <p>page no. {currentPage}</p>
         {/* show pages button  */}
+        <button onClick={handlePrevPage}>Prev</button>
         {pages.map((page) => (
-          <button key={page}>{page + 1}</button>
+          <button
+            onClick={() => setCurrentPage(page + 1)}
+            key={page}
+            className={currentPage === page + 1 && "selected"}
+          >
+            {page + 1}
+          </button>
         ))}
+        <button onClick={handleNextPage}>Next</button>
         <select name="" value={itemsPerPage} onChange={handleItemsPerPage}>
           <option value="5">05</option>
           <option value="10">10</option>
