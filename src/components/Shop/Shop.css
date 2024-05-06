@@ -27,5 +27,9 @@
 }
 
 .pagination{
-    
+    text-align: center;
+    margin: 20px 0px;
+}
+.pagination button{
+    margin-right: 10px;
 }
