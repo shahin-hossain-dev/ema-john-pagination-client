@@ -24,7 +24,7 @@ const Shop = () => {
   // }
 
   //[...Array(5).keys()]
-  const pages = [...Array(numberOfPages).keys()];
+  const pages = [...Array(numberOfPages).keys()]; // array থেকে key গুলো নেওয়া হয়েছে।
 
   console.log(pages);
 
@@ -133,7 +133,7 @@ const Shop = () => {
           <button
             onClick={() => setCurrentPage(page)}
             key={page}
-            className={currentPage === page && "selected"}
+            className={currentPage === page ? "selected" : undefined}
           >
             {page}
           </button>
