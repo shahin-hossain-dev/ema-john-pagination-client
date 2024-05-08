@@ -11,8 +11,10 @@ import { Link, useLoaderData } from "react-router-dom";
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
-  const [cart, setCart] = useState([]);
-  const { count } = useLoaderData();
+  const cartLoad = useLoaderData();
+  const [cart, setCart] = useState(cartLoad);
+  // const { count } = useLoaderData();
+  const [count, setCount] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -44,7 +46,15 @@ const Shop = () => {
   }, [currentPage, itemsPerPage]);
 
   useEffect(() => {
+    fetch("http://localhost:5000/productsCount")
+      .then((res) => res.json())
+      .then((data) => setCount(data.count));
+  }, []);
+
+  // carProductsLoader & এই functionality same তাই আমরা ঐ loader use করবো।
+  /* useEffect(() => {
     const storedCart = getShoppingCart();
+
     const savedCart = [];
     // step 1: get id of the addedProduct
     for (const id in storedCart) {
@@ -61,7 +71,7 @@ const Shop = () => {
     }
     // step 5: set the cart
     setCart(savedCart);
-  }, [products]);
+  }, [products]); */
 
   const handleAddToCart = (product) => {
     // cart.push(product); '
